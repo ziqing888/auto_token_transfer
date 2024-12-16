@@ -42,9 +42,10 @@ def TransferNative(sender, senderkey, recipient, amount, web3, retries=3):
             fixamount = '%.18f' % float(amount)
             # 签名交易
             sign_txn = web3.eth.account.sign_transaction(auto_tx, senderkey)
-            # 发送交易
+
+            # 发送交易 (注意这里改为 raw_transaction)
             print(Fore.CYAN + f'正在发送 {fixamount} ETH 到随机地址: {recipient} ...')
-            tx_hash = web3.eth.send_raw_transaction(sign_txn.rawTransaction)
+            tx_hash = web3.eth.send_raw_transaction(sign_txn.raw_transaction)
 
             # 获取交易哈希
             txid = str(web3.to_hex(tx_hash))
